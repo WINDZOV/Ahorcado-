@@ -46,9 +46,12 @@ function generarTeclado() {
 
         letras.forEach(letra => {
             let btnLetra = document.createElement("button");
-            btnLetra.classList.add("btn", "btn-success", "m-1"); // Estilos de Bootstrap
-            btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
-            btnLetra.style.height = "40px";
+            btnLetra.classList.add("btn", "btn-success", "m-1", 'm-sm-'); // Estilos de Bootstrap
+            //btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
+            //btnLetra.style.height = "40px";
+            btnLetra.style.flex = "1 1 10%";
+            if(window.innerWidth >= 768){ btnLetra.style.flex = "1 1 8%"};
+            if(window.innerWidth >= 1024){ btnLetra.style.flex = "1 1 6%"};
             btnLetra.textContent = letra.toUpperCase(); // Letras en mayúscula
             btnLetra.addEventListener("click", function() {
                 pulsarLetra(letra, btnLetra);
@@ -97,7 +100,7 @@ function verificarFinDelJuego() {
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
        // location.reload(); 
-       location.href = 'juegofinaleeror.html';
+       location.href = 'http://curso.test/JavaScript/juegofinaleeror.html';
        
       
        
@@ -133,3 +136,5 @@ var btn = document.querySelector('porerror')
 btn.addEventListener('click', () => {
     location.href= "https://google.com";
 })
+
+

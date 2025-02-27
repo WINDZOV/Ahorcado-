@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="juego.css">
+</head>
+<body>
+    <header>
+        <button id="aboutButton" class="btn btn-warning">Sobre el juego</button>
+    </header>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h2>Vamos a crear mas juegos?</h2>
+          <p><b>Es muy divertido crear un juego. Pero se consume mucho tiempo. Es un cirquito cerrado:<br>lo haces lento y pierdes el tiempo por que te falta la practica, <br> peró es el tiempo lo que te falta <br> para practicar y ahorrar el tiempo (perdón por tautología)</b></p>
+        </div>
+      </div>
+    <section class="container">
+        <div class="row mt-3">
+            <div class="col-lg-8">
+                <h2>Juego del Ahorcado V 1.0</h2>
+            </div>
+            <div class="col-lg-4 d-flex gap-3">
+                <select class="form-select" id="nivel">
+                    <option value="0">Elige el Nivel</option>
+                    <option value="1">Inicial</option>
+                    <option value="2">Experto</option>
+                </select>
+                <button id="btnIniciar" class="btn btn-success" disabled>INICIAR</button>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-8">
+                <div id="palabra" class="fs-3 text-center"></div>
+                <div id="qwerty"></div>
+            </div>
+            <div class="col-lg-4">
+                <h4>Errores: <span id="errores">0</span></h4>
+            </div>
+        </div>
+    </section>
+    
+
+    <script src="js/juego.js"></script>
+</body>
+</html>

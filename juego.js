@@ -7,7 +7,7 @@ let errores = 0;
 let letrasUsadas = [];
 const nivel1 = ['casa', 'coche', 'perro', 'agua', 'lapiz', 'pelota', 'parque'];
 const nivel2 = ['escuela', 'bomberos', 'extraordinario', 'diferenciales', 'maquinista', 'matematicas'];
-const alfabeto = 'qwertyuiopasdfghjkl;zxcvbnm'.split('');
+const alfabeto = 'qwertyuiopasdfghjkl;"."zxcvbnm".""."'.split('');
 
 nivel.addEventListener("change", function() {
     btn1.disabled = (nivel.value === "0");

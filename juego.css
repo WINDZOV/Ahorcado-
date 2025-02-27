@@ -4,10 +4,10 @@ body{
     background-repeat: no-repeat;
     background-size:cover;
 }
- 
+
 #palabra{
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     margin-bottom: 10px;
     
@@ -65,7 +65,7 @@ body{
     cursor: pointer;
   }
 
-  .btn-letra {
+  .btn-success {
     width: 40px;
     height: 40px;
     text-align: center;

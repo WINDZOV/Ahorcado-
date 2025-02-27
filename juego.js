@@ -97,7 +97,7 @@ function verificarFinDelJuego() {
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
        // location.reload(); 
-       location.href = 'http://curso.test/JavaScript/juegofinaleeror.html';
+       location.href = 'http://juegofinaleeror.html';
        
       
        

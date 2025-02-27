@@ -46,49 +46,7 @@ function generarTeclado() {
 
         letras.forEach(letra => {
             let btnLetra = document.createElement("button");
-            btnLetra.classList.add("btn", "btn-success", "m-2", 'm-sm-0.2", font-weight: bold;)
-  }
-  
-  .close-button:hover,
-  .close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .btn-letra {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    font-size: 18px;
-    display: inline;
-    border-radius: 10px;
-    padding: 3px;
-    margin-left: 3px;
-    margin-top: 10px;
-
-}   font-weight: bold;
-  }
-  
-  .close-button:hover,
-  .close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .btn-letra {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    font-size: 18px;
-    display: inline;
-    border-radius: 10px;
-    padding: 3px;
-    margin-left: 3px;
-    margin-top: 10px;
-
-}'); // Estilos de Bootstrap
+            btnLetra.classList.add("btn", "btn-success", "m-1", 'm-sm-'); // Estilos de Bootstrap
             //btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
             //btnLetra.style.height = "40px";
             btnLetra.style.flex = "1 1 10%";

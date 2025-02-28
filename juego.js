@@ -1,7 +1,7 @@
 let nivel = document.querySelector('#nivel');
 let btn1 = document.querySelector('#btnIniciar');
 let palabra = '';
-let palabraOculta = '';
+let palabraOculta = ''; 
 
 let errores = 0;
 let letrasUsadas = [];

@@ -6,7 +6,7 @@ let errores = 0;
 let letrasUsadas = [];
 const nivel1 = ['casa', 'coche', 'perro', 'agua', 'lapiz', 'pelota', 'parque'];
 const nivel2 = ['escuela', 'bomberos', 'extraordinario', 'diferenciales', 'maquinista', 'matematicas'];
-const alfabeto = 'qwertyuiopasdfghjkl;"."zxcvbnm".""."'.split('');
+const alfabeto = 'abcdefghijklmn;opqrstuvwxyz'.split('');
 
 nivel.addEventListener("change", function() {
     (nivel.value === "0");
@@ -36,9 +36,9 @@ function generarTeclado() {
     qwertyDiv.innerHTML = ""; // Limpia el contenido antes de generar teclas nuevas
 
     // Definir filas del teclado
-    const fila1 = "qwertyuiop".split("");
-    const fila2 = "asdfghjklñ".split("");
-    const fila3 = "zxcvbnm".split("");
+    const fila1 = "abcdefghi".split("");
+    const fila2 = "jklmnopqr".split("");
+    const fila3 = "stuvwxyz".split("");
 
     // Función auxiliar para crear filas
     function crearFila(letras) {
@@ -129,7 +129,7 @@ window.addEventListener("click", function(event) {
 })
 
 
-var btn = document.querySelector('porerror')
+//var btn = document.querySelector('porerror')
 
 btn.addEventListener('click', () => {
     location.href= "https://google.com";

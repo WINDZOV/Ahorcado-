@@ -12,6 +12,8 @@ nivel.addEventListener("change", function() {
     (nivel.value === "0");
     iniciarJuego(nivel.value);
 });
+
+
 //btn1.display.hide
 
 /*btn1.addEventListener("click", function() {
@@ -40,16 +42,15 @@ function generarTeclado() {
     const fila2 = "jklmnñopq".split("");
     const fila3 = "rstuvwxyz".split("");
 
-    // Función auxiliar para crear filas
-    function crearFila(letras) {
+  function crearFila(letras) {
         let filaDiv = document.createElement("div");
         filaDiv.classList.add("d-flex", "justify-content-center", "mb-2"); // Centrar y añadir margen
 
         letras.forEach(letra => {
             let btnLetra = document.createElement("button");
-            btnLetra.classList.add("btn", "btn-success", "m-1");
-            btnLetra.style.width = "40px";
-            btnLetra.style.height = "40px";
+            btnLetra.classList.add("btn", "btn-success", "m-1"); // Estilos de Bootstrap
+           // btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
+            //btnLetra.style.height = "40px";
             btnLetra.textContent = letra.toUpperCase(); // Letras en mayúscula
             btnLetra.addEventListener("click", function() {
                 pulsarLetra(letra, btnLetra);
@@ -70,14 +71,14 @@ function generarTeclado() {
 function pulsarLetra(letra, boton) {
     if (letrasUsadas.includes(letra)) return;
     letrasUsadas.push(letra);
-    boton.disabled = false;
+    boton.disabled = true;
     let acertado = false;
 
     for (let i = 0; i < palabra.length; i++) {
         if (palabra[i] == letra) {
             palabraOculta[i] = letra;
             acertado = true;
-        } 
+        }
     }
 
     document.querySelector("#palabra").textContent = palabraOculta.join(" ");
@@ -104,7 +105,7 @@ location.reload()
       
        
         //location.href='https://curso.test/JavaScript/juego.html';
-        btn1.disabled = false;
+        //btn1.disabled = false;
     }
 }
 

@@ -98,7 +98,7 @@ function verificarFinDelJuego() {
 location.reload()
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
-        location.reload(); 
+        location.reload(); }
        //location.href = 'juegofinaleeror.html';
        
       

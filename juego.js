@@ -95,6 +95,7 @@ function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
         alert("Tadam tadam tadaam! Genial!");
        // btn1.disabled = false;
+location.reload()
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
         location.reload(); 
@@ -128,11 +129,5 @@ window.addEventListener("click", function(event) {
   }
 })
 
-
-//var btn = document.querySelector('porerror')
-
-btn.addEventListener('click', () => {
-    location.href= "https://google.com";
-})
 
 

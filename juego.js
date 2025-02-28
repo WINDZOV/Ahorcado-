@@ -77,7 +77,7 @@ function pulsarLetra(letra, boton) {
         if (palabra[i] == letra) {
             palabraOculta[i] = letra;
             acertado = true;
-        }
+        } 
     }
 
     document.querySelector("#palabra").textContent = palabraOculta.join(" ");

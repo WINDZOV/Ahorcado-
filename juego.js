@@ -2,7 +2,6 @@ let nivel = document.querySelector('#nivel');
 let btn1 = document.querySelector('#btnIniciar');
 let palabra = '';
 let palabraOculta = ''; 
-
 let errores = 0;
 let letrasUsadas = [];
 const nivel1 = ['casa', 'coche', 'perro', 'agua', 'lapiz', 'pelota', 'parque'];

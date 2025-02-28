@@ -6,7 +6,7 @@ let errores = 0;
 let letrasUsadas = [];
 const nivel1 = ['casa', 'coche', 'perro', 'agua', 'lapiz', 'pelota', 'parque'];
 const nivel2 = ['escuela', 'bomberos', 'extraordinario', 'diferenciales', 'maquinista', 'matematicas'];
-const alfabeto = 'abcdefghijklmn;opqrstuvwxyz'.split('');
+const alfabeto = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
 nivel.addEventListener("change", function() {
     (nivel.value === "0");
@@ -37,8 +37,8 @@ function generarTeclado() {
 
     // Definir filas del teclado
     const fila1 = "abcdefghi".split("");
-    const fila2 = "jklmnopqr".split("");
-    const fila3 = "stuvwxyz".split("");
+    const fila2 = "jklmnñopq".split("");
+    const fila3 = "rstuvwxyz".split("");
 
     // Función auxiliar para crear filas
     function crearFila(letras) {

@@ -48,8 +48,8 @@ function generarTeclado() {
         letras.forEach(letra => {
             let btnLetra = document.createElement("button");
             btnLetra.classList.add("btn", "btn-success", "m-1");
-            btnLetra.style.width = "40px";
-            btnLetra.style.height = "40px";
+            //btnLetra.style.width = "40px";
+           // btnLetra.style.height = "40px";
             btnLetra.textContent = letra.toUpperCase(); // Letras en mayúscula
             btnLetra.addEventListener("click", function() {
                 pulsarLetra(letra, btnLetra);

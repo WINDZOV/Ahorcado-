@@ -95,11 +95,11 @@ function pulsarLetra(letra, boton) {
 function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
         alert("Tadam tadam tadaam! Genial!");
+        location.reload()
        // btn1.disabled = false;
-location.reload()
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
-        location.reload(); }
+        location.reload(); 
        //location.href = 'juegofinaleeror.html';
        
       
@@ -129,6 +129,3 @@ window.addEventListener("click", function(event) {
     closeModal();
   }
 })
-
-
-

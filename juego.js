@@ -39,8 +39,8 @@ function generarTeclado() {
 
     // Definir filas del teclado
     const fila1 = "abcdefghi".split("");
-    const fila2 = "jklmnñopq".split("");
-    const fila3 = "rstuvwxyz".split("");
+    const fila2 = "jklmnñopqr".split("");
+    const fila3 = "stuvwxyz".split("");
 
   function crearFila(letras) {
         let filaDiv = document.createElement("div");

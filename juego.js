@@ -10,14 +10,15 @@ const nivel2 = ['escuela', 'bomberos', 'extraordinario', 'diferenciales', 'maqui
 const alfabeto = 'qwertyuiopasdfghjkl;"."zxcvbnm".""."'.split('');
 
 nivel.addEventListener("change", function() {
-    btn1.disabled = (nivel.value === "0");
-});
-
-btn1.addEventListener("click", function() {
-    btn1.disabled = true;
+    (nivel.value === "0");
     iniciarJuego(nivel.value);
 });
 
+/*btn1.addEventListener("click", function() {
+    btn1.disabled = true;
+    iniciarJuego(nivel.value);
+});
+*/
 function iniciarJuego(nivel) {
     let palabras = nivel === '1' ? nivel1 : nivel2; //inicial = nivel1 array, experto = nivel2 array
     palabra = palabras[Math.floor(Math.random() * palabras.length)];

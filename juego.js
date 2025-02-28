@@ -20,7 +20,7 @@ nivel.addEventListener("change", function() {
 });
 */
 function iniciarJuego(nivel) {
-    let palabras = nivel === '1' ? nivel1 : nivel2; //inicial = nivel1 array, experto = nivel2 array
+    let palabras = nivel === '1' ? nivel1 : nivel2; //iniciar = nivel1 array, experto = nivel2 array
     palabra = palabras[Math.floor(Math.random() * palabras.length)];
     palabraOculta = Array(palabra.length).fill("_"); // para dibujar guillones bajos '_' == numero de letras en palabra
     errores = 0;
@@ -47,8 +47,8 @@ function generarTeclado() {
 
         letras.forEach(letra => {
             let btnLetra = document.createElement("button");
-            btnLetra.classList.add("btn", "btn-success", "m-1", 'm-sm-'); // Estilos de Bootstrap
-            btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
+            btnLetra.classList.add("btn", "btn-success", "m-1");
+            btnLetra.style.width = "40px";
             btnLetra.style.height = "40px";
             btnLetra.textContent = letra.toUpperCase(); // Letras en mayúscula
             btnLetra.addEventListener("click", function() {
@@ -93,12 +93,12 @@ function pulsarLetra(letra, boton) {
 
 function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
-        alert("Tadam tadam tadaam! Iiii la palabra es: " + palabra);
-        btn1.disabled = false;
+        alert("Tadam tadam tadaam! Genial!");
+       // btn1.disabled = false;
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
-       // location.reload(); 
-       location.href = 'juegofinaleeror.html';
+        location.reload(); 
+       //location.href = 'juegofinaleeror.html';
        
       
        

@@ -3,9 +3,73 @@ let nivel = document.querySelector('#nivel');
 let palabra = '';
 let palabraOculta = ''; 
 let errores = 0; 
-let letrasUsadas = []; 
-const nivel1 = ['casa', 'coche', 'perro', 'agua', 'lapiz', 'pelota', 'parque'];
-const nivel2 = ['escuela', 'bomberos', 'extraordinario', 'diferenciales', 'maquinista', 'matematicas'];
+let letrasUsadas = [];
+const nivel1 = [ "ABUELO", "AGUA", "AIRE", "ALBA", "ALMA", "ALTO", "AMAR", "AMIGO", "ANCHO", "ÁRBOL",  
+  "ARENA", "ARROZ", "AVEJA", "BAILE", "BAÑO", "BARCO", "BELLO", "BESAR", "BICHO", "BLUSA",  
+  "BOCA", "BOLSA", "BROMA", "BUENO", "BURRO", "CABRA", "CAJA", "CALLE", "CANTO", "CARGA",  
+  "CARRO", "CASA", "CIELO", "CINTA", "CLAVE", "COCHE", "COMER", "COPA", "CORAZÓN", "CORO",  
+  "COSTA", "CUBO", "CUENTO", "DANZA", "DEDOS", "DÍA", "DIENTE", "DIOS", "DOLOR", "DULCE",  
+  "ELEGIR", "ENCIMA", "ENTRAR", "EQUIPO", "ESCUELA", "ESPEJO", "ESPUMA", "ESTRELLA", "EXTRA", "FELIZ",  
+  "FERIA", "FIESTA", "FLACO", "FLOR", "FOCO", "FUERTE", "FUEGO", "FUMAR", "GAFAS", "GALLO",  
+  "GATO", "GENTE", "GLOBO", "GOLPE", "GRANDE", "GRITO", "GRUPO", "GUERRA", "GUISO", "HABLA",  
+  "HIELO", "HIJO", "HOGAR", "HOMBRE", "HONOR", "HORNO", "HUEVO", "HUESO", "IGLESIA", "IGUAL",  
+  "IMAGEN", "INVIERNO", "ISLA", "JARDÍN", "JUEGO", "JOVEN", "JUICIO", "JUNTOS", "LÁMPARA", "LARGO",  
+  "LECHE", "LENTO", "LIBRO", "LIMÓN", "LISTA", "LLAMA", "LLUVIA", "LUCES", "LUZ", "MADRE",  
+  "MAGIA", "MANO", "MAR", "MASCOTA", "MELÓN", "MENSAJE", "MESA", "MIRAR", "MOLINO", "MONEDA",  
+  "MONO", "MORADO", "MOTIVO", "MOVER", "MUCHO", "MUJER", "MUNDO", "MUSLO", "NADAR", "NARIZ",  
+  "NEGRO", "NIEVE", "NOCHE", "NOMBRE", "NORTE", "NUBE", "NUEVO", "OÍDO", "OJOS", "OLVIDO",  
+  "OREJA", "OTOÑO", "PADRE", "PAISAJE", "PALABRA", "PAN", "PARED", "PASEO", "PASTEL", "PATATA",  
+  "PATO", "PAZ", "PECHO", "PEDIR", "PELAR", "PELO", "PEQUEÑO", "PERDER", "PERRO", "PIANO",  
+  "PIE", "PINTAR", "PISO", "PLATA", "PLAZA", "PLUMA", "POCO", "POLLO", "PORTE", "PREGUNTA",  
+  "PRIMAVERA", "PUENTE", "PULPO", "QUESO", "QUIETO", "RÁPIDO", "RAYO", "REBAÑO", "RELOJ", "RETO",  
+  "RICO", "RIEGO", "ROJO", "ROMA", "ROSADO", "RUIDO", "SALADO", "SALIDA", "SALTO", "SANO",  
+  "SILLA", "SIEMPRE", "SIMPÁTICO", "SOL", "SORPRESA", "SUEÑO", "TALÓN", "TARTA", "TELÉFONO", "TIERRA",  
+  "TIJERAS", "TOMATE", "TORTA", "TREN", "TRIGO", "TROMPA", "TROZO", "TURNO", "UVA", "VACA",  
+  "VAPOR", "VEINTE", "VELA", "VENTANA", "VERDE", "VIAJE", "VIENTO", "VINO", "VIOLÍN", "VIVIR",  
+  "VOLVER", "YATE", "ZAPATO", "ZORRO"
+];
+const nivel2 = ["ABANICO", "ABEJA", "ABRIGO", "ACUARIO", "AFÁN", "AGUJERO", "ALBERCA", "ALCACHOFA", "ALDABA", "ALERTO",
+  "ALFILER", "ALMENDRA", "ALMOHADA", "ALQUILER", "AMAPOLA", "AMULETO", "ANCLA", "ANÉCDOTA", "ANGUSTIA", "ANHELO",
+  "ANTORCHA", "AÑORANZA", "APLAUSO", "ARCOIRIS", "ARENA", "ARGUMENTO", "AROMA", "ARTESANO", "ASTRONAUTA", "AVELLANA",
+  "AZÚCAR", "BANDERA", "BARRO", "BASTÓN", "BENDECIR", "BIBLIOTECA", "BOLSA", "BOSQUE", "BOTÁNICO", "BÚHO",
+  "CABALLERO", "CABEZA", "CÁLIDO", "CAMBIO", "CAMPANARIO", "CANDADO", "CANELA", "CANTANTE", "CARÁCTER", "CARGADOR",
+  "CARIÑO", "CARPINTERO", "CASCADA", "CASTAÑA", "CATEDRAL", "CELESTIAL", "CÉLULA", "CEMENTO", "CEREZA", "CICATRIZ",
+  "CIELO", "CIFRA", "CIMA", "CINTURÓN", "CIRCO", "CIRUELA", "CIVILIZADO", "CLARIDAD", "CLAVO", "COCINA",
+  "COFRE", "COLECCIÓN", "COMEDIA", "COMPOSITOR", "CONCHA", "CONQUISTA", "CONTRATIEMPO", "CORTINA", "COSTURA", "CREPÚSCULO",
+  "CUBIERTA", "CUERDA", "CURIOSIDAD", "DÁLMATA", "DANZA", "DEBILIDAD", "DEDAL", "DEFENSA", "DELICADEZA", "DEPÓSITO",
+  "DESTINO", "DIAMANTE", "DIARIO", "DIBUJO", "DILUVIO", "DINÁMICO", "DISCURSO", "DIURNO", "DOMINIO", "DRAGÓN",
+  "DULZURA", "ECLIPSE", "EDUCACIÓN", "EFECTIVO", "EJÉRCITO", "ELEGANCIA", "EMOCIÓN", "ENCANTO", "ENFOQUE", "ENTUSIASMO",
+  "EQUILIBRIO", "ESCALERA", "ESCULTURA", "ESENCIA", "ESMERALDA", "ESPACIO", "ESPEJO", "ESTRATEGIA", "EXPERIENCIA", "FÁBRICA",
+  "FAMILIAR", "FANTASÍA", "FARO", "FELICIDAD", "FESTIVAL", "FIRMAMENTO", "FLEXIBLE", "FLORERO", "FORTUNA", "FRESCURA",
+  "FRONTERA", "FUEGO", "GALLARDO", "GARGANTA", "GENERACIÓN", "GIGANTE", "GLACIAR", "GRANDIOSO", "GRAVEDAD", "GUARDIÁN",
+  "HALLAZGO", "HARMONÍA", "HÉROE", "HIELO", "HORIZONTE", "HUELLA", "HUMILDAD", "IMAGINACIÓN", "IMPACTO", "IMPRESIÓN",
+  "INCÓGNITA", "INDOMABLE", "INFINITO", "INSPIRACIÓN", "INTUICIÓN", "INVIERNO", "JARDINERO", "JARRÓN", "JAZMÍN", "JOVIAL",
+  "JUBILOSO", "JUGADOR", "JUGUETE", "LABERINTO", "LÁGRIMA", "LAMPARA", "LEGADO", "LIMÓN", "LLAVE", "LUMINOSO",
+  "MAESTRO", "MAGIA", "MAJESTUOSO", "MANANTIAL", "MANSIÓN", "MARAVILLA", "MÁSCARA", "MELODÍA", "MENTE", "MISTERIO",
+  "MOTIVACIÓN", "MURMULLO", "NÁCAR", "NAVEGANTE", "NIEVE", "NOSTALGIA", "OBELISCO", "OBSERVADOR", "OCEÁNICO", "OMNIPOTENTE",
+  "OPTIMISTA", "ORÍGENES", "OSCILACIÓN", "PACIENCIA", "PÁJARO", "PALACIO", "PANORAMA", "PENSAMIENTO", "PERGAMINO", "PESADILLA",
+  "PILAR", "PINTOR", "PLENITUD", "PLUMA", "PORTAL", "PRIMAVERA", "PROCESO", "PUNTUAL", "RADAR", "REFLEJO",
+  "RÍGIDO", "RÍTMICO", "ROMPECABEZAS", "SABIDURÍA", "SAGRADO", "SALVAJE", "SENSIBILIDAD", "SERENIDAD", "SOMBRA", "SONRISA",
+  "TEMBLOR", "TESORO", "TIBURÓN", "TORMENTA", "TRÉBOL", "UNIVERSO", "VALENTÍA", "VÉRTIGO", "VIENTO", "VOLCÁN" ];
+  const nivel3 = ["ABSTRACCIÓN", "ACUEDUCTO", "ALABANZA", "ANFITRIÓN", "ANTÍTESIS",
+    "ARQUITECTO", "BIBLIOTECA", "BIODEGRADABLE", "CATASTROFISMO", "CIRCUNSTANCIA",
+    "COMPLICIDAD", "CONCURRENCIA", "CONSTELACIÓN", "CONTRADICCIÓN", "DECREPITUD",
+    "DILIGENCIA", "DISCREPANCIA", "ECLECTICISMO", "EFERVESCENCIA", "ELECTROCUTAR",
+    "ELOCUENCIA", "ENIGMÁTICO", "EQUILIBRIO", "ESTRATÉGICO", "EVANESCENTE",
+    "EXTRAVAGANTE", "FASCINACIÓN", "FILOSOFÍA", "FORTUITO", "FUGACIDAD",
+    "GALVANIZAR", "GARGANTILLA", "GRANDILOCUENTE", "HETEROGÉNEO", "HIPOTÉTICO",
+    "IDIOSINCRASIA", "ILUMINACIÓN", "IMPROVISACIÓN", "INCONGRUENCIA", "INEFABLE",
+    "INEXORABLE", "INTRÉPIDO", "JERARQUÍA", "JUBILACIÓN", "LABERINTO",
+    "LEGITIMIDAD", "LITERATURA", "MAGISTRAL", "MECANISMO", "METÁFORA",
+    "MISTICISMO", "MORFOLOGÍA", "NARRATIVO", "NEBULOSA", "NOSTALGIA",
+    "OBSOLESCENCIA", "OMNIPOTENTE", "PARADIGMA", "PARADOJA", "PENUMBRA",
+    "PERSPECTIVA", "PREDOMINANTE", "PROCRASTINAR", "QUIMERA", "RADICALISMO",
+    "REMINISCENCIA", "RETÓRICA", "SARCÁSTICO", "SILUETA", "SIMBIOSIS",
+    "SINCRONIZACIÓN", "SINIESTRO", "SOBERANÍA", "SUBLIMINAL", "TANGENCIAL",
+    "TÉCNICO", "TENEBROSO", "TIRANÍA", "TRANSGRESIÓN", "TRIVIALIDAD",
+    "ULTERIOR", "UNIVERSALIDAD", "UTOPÍA", "VANGUARDIA", "VEHEMENTE",
+    "VICISITUD", "VULNERABILIDAD", "ZARZUELA"
+];
 const alfabeto = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
 nivel.addEventListener("change", function() {
@@ -22,7 +86,7 @@ nivel.addEventListener("change", function() {
 });
 */
 function iniciarJuego(nivel) {
-    let palabras = nivel === '1' ? nivel1 : nivel2; //iniciar = nivel1 array, experto = nivel2 array
+    let palabras = nivel === '1' ? nivel1 : nivel2 , nivel3; //iniciar = nivel1 array, experto = nivel2 array
     palabra = palabras[Math.floor(Math.random() * palabras.length)];
     palabraOculta = Array(palabra.length).fill("_"); // para dibujar guillones bajos '_' == numero de letras en palabra
     errores = 0;
@@ -95,11 +159,11 @@ function pulsarLetra(letra, boton) {
 function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
         alert("Tadam tadam tadaam! Genial!");
-        location.reload()
        // btn1.disabled = false;
+location.reload()
     } else if (errores >= 6) {
         alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
-        location.reload(); 
+        location.reload(); }
        //location.href = 'juegofinaleeror.html';
        
       
@@ -107,7 +171,7 @@ function verificarFinDelJuego() {
         //location.href='https://curso.test/JavaScript/juego.html';
         //btn1.disabled = false;
     }
-}
+
 
 const modal = document.getElementById("modal");
 const aboutButton = document.getElementById("aboutButton");

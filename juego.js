@@ -13,6 +13,7 @@ nivel.addEventListener("change", function() {
     (nivel.value === "0");
     iniciarJuego(nivel.value);
 });
+btn1.display.hide
 
 /*btn1.addEventListener("click", function() {
     btn1.disabled = true;

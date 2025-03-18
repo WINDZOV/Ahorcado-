@@ -153,7 +153,7 @@ function pulsarLetra(letra, boton) {
 
 function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
-        alert("Tadam tadam tadaam! Genial!");
+        alert("Tadam tadam tadaam! La palabra es" +palabra+". Bravoo!!");
        // btn1.disabled = false;
 location.reload()
     } else if (errores >= 6) {
@@ -180,7 +180,7 @@ function closeModal() {
   modal.style.display = "none";
 }
 
-aboutButton.addEventListener("click", openModal);
+/*aboutButton.addEventListener("click", openModal);
 closeButton.addEventListener("click", closeModal);
 
 window.addEventListener("click", function(event) {

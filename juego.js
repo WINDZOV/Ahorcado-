@@ -110,7 +110,7 @@ function generarTeclado() {
             btnLetra.classList.add("btn", "btn-success", "m-1"); // Estilos de Bootstrap
            // btnLetra.style.width = "40px"; // Tamaño fijo para uniformidad
             //btnLetra.style.height = "40px";
-            btnLetra.textContent = letra.toUpperCase(); // Letras en mayúscula
+            btnLetra.textContent = letra.toUpperCase(); 
             btnLetra.addEventListener("click", function() {
                 pulsarLetra(letra, btnLetra);
             });
@@ -121,7 +121,7 @@ function generarTeclado() {
         qwertyDiv.appendChild(filaDiv);
     }
 
-    // Crear las tres filas del teclado
+    // Creamos las tres filas del teclado
     crearFila(fila1);
     crearFila(fila2);
     crearFila(fila3);
@@ -152,20 +152,29 @@ function pulsarLetra(letra, boton) {
 }
 
 function verificarFinDelJuego() {
+    const mensajeFinal = document.getElementById("mensajeFinal");
+    const textoMensaje = document.getElementById("textoMensaje");
+
     if (!palabraOculta.includes("_")) {
-        alert("Tadam tadam tadaam! La palabra es" +palabra+". Bravoo!!");
-       // btn1.disabled = false;
-location.reload()
+        textoMensaje.textContent = "🎉 ¡Tadam tadam tadaam! La palabra es: " + palabra + ". ¡Bravoo!";
+        mensajeFinal.classList.remove("oculto");
     } else if (errores >= 6) {
-        alert("Ai ai ai ai aii. La palabra era: " + palabra+". Intenta de nuevo");
-        location.reload(); }
+        textoMensaje.textContent = "😢 Ai ai ai ai aii. La palabra era: " + palabra + ". Intenta de nuevo.";
+        mensajeFinal.classList.remove("oculto");
+    }
+}
+
+    function reiniciarJuego() {
+        location.reload();
+    }
+
        //location.href = 'juegofinaleeror.html';
        
       
        
         //location.href='https://curso.test/JavaScript/juego.html';
         //btn1.disabled = false;
-    }
+    
 
 
 const modal = document.getElementById("modal");
@@ -180,7 +189,7 @@ function closeModal() {
   modal.style.display = "none";
 }
 
-/*aboutButton.addEventListener("click", openModal);
+aboutButton.addEventListener("click", openModal);
 closeButton.addEventListener("click", closeModal);
 
 window.addEventListener("click", function(event) {
@@ -188,4 +197,4 @@ window.addEventListener("click", function(event) {
     closeModal();
   }
 })
-*/
+

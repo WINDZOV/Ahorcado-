@@ -10,10 +10,9 @@
 </head>
 <body>
     <header>
-       <!-- <div>
-            <button id="aboutButton" class="btn btn-warning">Sobre el juego</button>
-        </div>
-        <div>
+        <button id="aboutButton" class="btn btn-secondary mt-2 m-2">Sobre el juego</button>
+
+       <!--  <div>
             <button id="espButton" class="btn btn-light language-toggle" type="button">
             <img src="bandera-de-espana.jpg" alt="Cambiar a español" width="30" id="es">
         </button>
@@ -34,13 +33,6 @@
     <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close-button">&times;</span>
-          <h2>Vamos a crear mas juegos?</h2>
-          <p><b>Es muy divertido crear un juego. Pero se consume mucho tiempo. Es un cirquito cerrado:<br>lo haces lento y pierdes el tiempo por que te falta la practica, <br> peró es el tiempo lo que te falta <br> para practicar y ahorrar el tiempo (perdón por tautología)</b></p>
-        </div>
-      </div>
-      <div id="instruciones" class="modal">
-        <div class="modalcontent2">
-            <span class="close-button">&times;</span>
             <h2>Cómo jugar?</h2>
             <p>
                 OBJETIVO: <br>
@@ -53,18 +45,22 @@
                     <li>Si fallan se dibuja una parte del muñeco (cabeza, ojos ,brazo….).</li>
                    
                 </ul>
-¡O TERMINARAS AHORCADO!
+                   ¡O TERMINARAS AHORCADO!
             </p>
+             <h2>Vamos a crear mas juegos?</h2>
+          <p><b>Es muy divertido crear un juego. Pero se consume mucho tiempo. Es un cirquito cerrado:<br>lo haces lento y pierdes el tiempo por que te falta la practica, <br> peró es el tiempo lo que te falta <br> para practicar y ahorrar el tiempo (perdón por tautología)</b></p>
+
         </div>
       </div>
     <section class="container">
         <div class="row mt-3">
             <div class="col-lg-8">
-                <h2>Juego del Ahorcado V 1.0</h2>
+                <h2 id="ahorcado">Juego del Ahorcado V 1.0</h2>
             </div>
+
             <div class="col-lg-4 d-flex gap-3">
                 <select class="form-select" id="nivel">
-                    <option value="0">Elige el Nivel</option>
+                    <option value="0">--Elige el Nivel--</option>
                     <option value="1">Principiante</option>
                     <option value="2">Profi</option>
                     <option value="3">Experto</option>
@@ -82,9 +78,13 @@
                 <h4>Errores: <span id="errores">0</span></h4>
             </div>
         </div>
+                    <div id="mensajeFinal" class="mensaje-final oculto">
+                <p id="textoMensaje"></p>
+                <button onclick="reiniciarJuego()">Jugar de nuevo</button>
+            </div>
     </section>
     <footer><h5>WiNDZOV 2025 || Creado por Nina K.</h5></footer>
-
+   
     <script src="juego.js"></script>
 </body>
 </html>

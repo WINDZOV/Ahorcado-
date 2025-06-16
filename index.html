@@ -9,18 +9,27 @@
     <link rel="stylesheet" href="juego.css">
 </head>
 <body>
-<header class="bg-light py-2 border-bottom">
-  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-    <button id="aboutButton" class="btn btn-secondary">Sobre el juego</button>
+    <header>
+        <button id="aboutButton" class="btn btn-secondary mt-2 m-2">Sobre el juego</button>
 
-    <div class="d-flex gap-2">
-      <button class="language-btn btn-spanish"></button>
-      <!-- <button class="language-btn btn-english"></button> -->
-      <!-- <button class="language-btn btn-russian"></button> -->
-    </div>
-  </div>
-</header>
-
+       <!--  <div>
+            <button id="espButton" class="btn btn-light language-toggle" type="button">
+            <img src="bandera-de-espana.jpg" alt="Cambiar a español" width="30" id="es">
+        </button>
+        </div>
+        <div>
+            <button id="engButton" class="btn btn-light language-toggle"  type="button">
+            <img src="US-UK_Flag.png" alt="Cambiar a inglés" width="30" id="engButton">
+        </button>
+        </div>-->
+        <!--<button class="language-btn"><span class="flag-icon flag-icon-es"></span></button>
+        <button class="language-btn"><span class="flag-icon flag-icon-gb"></span></button>-->
+        <button class="language-btn btn-spanish"></button>
+       <!-- <button class="language-btn btn-russian"></button>
+        <button class="language-btn btn-english"></button>
+        <button class="language-btn btn-geo"></button>     -->
+        
+    </header>
     <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close-button">&times;</span>
@@ -49,8 +58,8 @@
                 <h2 id="ahorcado">Juego del Ahorcado V 1.0</h2>
             </div>
 
-            <div class="col-12 col-lg-4 d-flex gap-2 flex-wrap">
-               <select class="form-select w-100" id="nivel">
+            <div class="col-lg-4 d-flex gap-3">
+                <select class="form-select" id="nivel">
                     <option value="0">--Elige el Nivel--</option>
                     <option value="1">Principiante</option>
                     <option value="2">Profi</option>
@@ -74,10 +83,7 @@
                 <button onclick="reiniciarJuego()">Jugar de nuevo</button>
             </div>
     </section>
-   <footer class="text-center mt-5 py-3 bg-light border-top">
-       <h5>WiNDZOV 2025 || Creado por Nina K.</h5>
-   </footer>
-
+    <footer><h5>WiNDZOV 2025 || Creado por Nina K.</h5></footer>
    
     <script src="juego.js"></script>
 </body>

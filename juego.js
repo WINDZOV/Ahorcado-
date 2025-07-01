@@ -156,15 +156,16 @@ function verificarFinDelJuego() {
     const textoMensaje = document.getElementById("textoMensaje");
 
     if (!palabraOculta.includes("_")) {
-        textoMensaje.textContent = "🎉 ¡Tadam tadam tadaam! La palabra es: " + palabra + ". ¡Bravoo!";
+        textoMensaje.textContent = "🎉 ¡Tadam tadam tadaam! La palabra era:  " + palabra.toUpperCase() +  ". ¡Bravoo!";
         mensajeFinal.classList.remove("oculto");
     } else if (errores >= 6) {
-        textoMensaje.textContent = "😢 Ai ai ai ai aii. La palabra era: " + palabra + ". Intenta de nuevo.";
+        textoMensaje.textContent = "😢 Ai ai ai ai aii. La palabra era:  " + palabra.toUpperCase() +  ". Intenta de nuevo.";
         mensajeFinal.classList.remove("oculto");
     }
 }
 
     function reiniciarJuego() {
+        document.querySelector("#nivel").value = "0";
         location.reload();
     }
 
@@ -197,3 +198,4 @@ window.addEventListener("click", function(event) {
     closeModal();
   }
 })
+

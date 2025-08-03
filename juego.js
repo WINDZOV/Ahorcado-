@@ -165,8 +165,23 @@ function verificarFinDelJuego() {
 }
 
     function reiniciarJuego() {
+        // Resetear variables del juego
+        palabra = '';
+        palabraOculta = '';
+        errores = 0;
+        letrasUsadas = [];
+        
+        // Resetear elementos de la interfaz
         document.querySelector("#nivel").value = "0";
-        location.reload();
+        document.querySelector("#palabra").textContent = "";
+        document.querySelector("#errores").textContent = "0";
+        document.querySelector("#qwerty").innerHTML = "";
+        
+        // Ocultar mensaje final
+        const mensajeFinal = document.getElementById("mensajeFinal");
+        if (mensajeFinal) {
+            mensajeFinal.classList.add("oculto");
+        }
     }
 
        //location.href = 'juegofinaleeror.html';
@@ -181,6 +196,7 @@ function verificarFinDelJuego() {
 const modal = document.getElementById("modal");
 const aboutButton = document.getElementById("aboutButton");
 const closeButton = document.querySelector(".close-button");
+const themeToggle = document.getElementById("themeToggle");
 
 function openModal() {
   modal.style.display = "block";
@@ -190,8 +206,69 @@ function closeModal() {
   modal.style.display = "none";
 }
 
+function toggleTheme() {
+  const body = document.body;
+  const themeIcon = themeToggle.querySelector("i");
+  
+  if (body.getAttribute("data-theme") === "dark") {
+    body.removeAttribute("data-theme");
+    themeIcon.className = "fas fa-moon";
+    localStorage.setItem("theme", "light");
+  } else {
+    body.setAttribute("data-theme", "dark");
+    themeIcon.className = "fas fa-sun";
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+// Cargar tema guardado al iniciar
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  const body = document.body;
+  const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
+  
+  if (savedTheme === "dark") {
+    body.setAttribute("data-theme", "dark");
+    if (themeIcon) themeIcon.className = "fas fa-sun";
+  } else {
+    body.removeAttribute("data-theme");
+    if (themeIcon) themeIcon.className = "fas fa-moon";
+  }
+}
+
+// Event listeners
 aboutButton.addEventListener("click", openModal);
 closeButton.addEventListener("click", closeModal);
+if (themeToggle) {
+  themeToggle.addEventListener("click", toggleTheme);
+}
+
+// Cargar tema y resetear interfaz al iniciar la página
+document.addEventListener("DOMContentLoaded", function() {
+  // Cargar tema guardado
+  loadSavedTheme();
+  
+  // Resetear select al cargar/refrescar la página
+  const nivelSelect = document.querySelector("#nivel");
+  if (nivelSelect) {
+    nivelSelect.value = "0";
+  }
+  
+  // Limpiar el área de palabra y teclado
+  const palabraDiv = document.querySelector("#palabra");
+  const qwertyDiv = document.querySelector("#qwerty");
+  const erroresSpan = document.querySelector("#errores");
+  
+  if (palabraDiv) palabraDiv.textContent = "";
+  if (qwertyDiv) qwertyDiv.innerHTML = "";
+  if (erroresSpan) erroresSpan.textContent = "0";
+  
+  // Asegurar que el mensaje final esté oculto
+  const mensajeFinal = document.getElementById("mensajeFinal");
+  if (mensajeFinal) {
+    mensajeFinal.classList.add("oculto");
+  }
+});
 
 window.addEventListener("click", function(event) {
   if (event.target === modal) {

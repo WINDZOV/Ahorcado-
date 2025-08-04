@@ -1,81 +1,134 @@
 <!DOCTYPE html>
-<html lang="Es-es">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahorcado</title>
+    <title>Ahorcado - Juego Interactivo</title>
     <meta name="author" content="Nina K.">
+    <meta name="description" content="Juego del ahorcado con tres niveles de dificultad y animaciones interactivas">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="juego.css">
 </head>
 <body>
-    <header>
-        <button id="aboutButton" class="btn btn-secondary mt-2 m-2">Sobre el juego</button>
-
-       <!--  <div>
-            <button id="espButton" class="btn btn-light language-toggle" type="button">
-            <img src="bandera-de-espana.jpg" alt="Cambiar a español" width="30" id="es">
-        </button>
-        </div>
-        <div>
-            <button id="engButton" class="btn btn-light language-toggle"  type="button">
-            <img src="US-UK_Flag.png" alt="Cambiar a inglés" width="30" id="engButton">
-        </button>
-        </div>-->
-        <!--<button class="language-btn"><span class="flag-icon flag-icon-es"></span></button>
-        <button class="language-btn"><span class="flag-icon flag-icon-gb"></span></button>-->
-        <button class="language-btn btn-spanish"></button>
-       <!-- <button class="language-btn btn-russian"></button>
-        <button class="language-btn btn-english"></button>
-        <button class="language-btn btn-geo"></button>     -->
-        
-    </header>
+    <div class="game-background">
+        <header class="game-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="game-title">
+                            <i class="fas fa-skull-crossbones"></i> 
+                            Ahorcado Interactivo
+                        </h1>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button id="aboutButton" class="btn-custom btn-info-custom" 
+                                aria-label="Información sobre el juego">
+                            <i class="fas fa-info-circle"></i> Ayuda
+                        </button>
+                        <button id="soundToggle" class="btn-custom btn-sound" 
+                                aria-label="Activar/Desactivar sonido">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="themeToggle" class="btn-custom btn-theme" 
+                                aria-label="Cambiar tema">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="reiniciarBtn" class="btn-custom btn-restart" 
+                                onclick="reiniciarJuego()" 
+                                aria-label="Reiniciar juego actual">
+                            <i class="fas fa-redo"></i> Reiniciar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
     <div id="modal" class="modal">
         <div class="modal-content">
-          <span class="close-button">&times;</span>
-            <h2>Cómo jugar?</h2>
-            <p>
-                OBJETIVO: <br>
-                <h3>Adivinar una palabra en el menor número de intentos
-                        posibles.</h3>
+            <span class="close-button">&times;</span>
+            <h2><i class="fas fa-gamepad"></i> ¿Cómo jugar?</h2>
+            
+            <div class="objetivo-section">
+                <h3><i class="fas fa-bullseye"></i> Objetivo</h3>
+                <p>Adivinar una palabra secreta en el menor número de intentos posibles.</p>
+            </div>
+            
+            <div class="reglas-section">
+                <h3><i class="fas fa-list-ul"></i> Instrucciones</h3>
                 <ul>
-                    <li>Los jugadores tendrán que ir diciendo letras para formar la palabra</li>
-                    <li>Se dibuja una horca y los jugadores van diciendo letras.</li>
-                    <li>Si aciertan se escribe la letra en la raya que corresponda.</li>
-                    <li>Si fallan se dibuja una parte del muñeco (cabeza, ojos ,brazo….).</li>
-                   
+                    <li>Selecciona tu nivel de dificultad (Principiante, Profi o Experto)</li>
+                    <li>Click en las letras del teclado virtual para hacer tus intentos</li>
+                    <li>Si aciertas, la letra aparecerá en su posición correcta</li>
+                    <li>Si fallas, se suma un error y el botón se vuelve rojo</li>
+                    <li>¡Cuidado! Tienes un límite de errores según el nivel elegido</li>
                 </ul>
-                   ¡O TERMINARAS AHORCADO!
-            </p>
-             <h2>Vamos a crear mas juegos?</h2>
-          <p><b>Es muy divertido crear un juego. Pero se consume mucho tiempo. Es un cirquito cerrado:<br>lo haces lento y pierdes el tiempo por que te falta la practica, <br> peró es el tiempo lo que te falta <br> para practicar y ahorrar el tiempo (perdón por tautología)</b></p>
-
+            </div>
+            
+            <div class="niveles-section">
+                <h3><i class="fas fa-chart-line"></i> Niveles de Dificultad</h3>
+                <div class="nivel-item">
+                    <span class="nivel-badge principiante">Principiante</span>
+                    <p>Palabras de 4-5 letras - Máximo 6 errores</p>
+                </div>
+                <div class="nivel-item">
+                    <span class="nivel-badge profi">Profesional</span>
+                    <p>Palabras de 6-8 letras - Máximo 6 errores</p>
+                </div>
+                <div class="nivel-item">
+                    <span class="nivel-badge experto">Experto</span>
+                    <p>Palabras largas y complejas - Máximo 6 errores</p>
+                </div>
+            </div>
+            
+            <div class="tips-section">
+                <h3><i class="fas fa-lightbulb"></i> ¡Consejos!</h3>
+                <p><strong>¡Buena suerte y que no te ahorquen!</strong> 🎯</p>
+            </div>
         </div>
-      </div>
+    </div>
     <section class="container">
         <div class="row mt-3">
-            <div class="col-lg-8">
-                <h2 id="ahorcado">Juego del Ahorcado V 1.0</h2>
-            </div>
-
-            <div class="col-lg-4 d-flex gap-3">
-                <select class="form-select" id="nivel">
-                    <option value="0">--Elige el Nivel--</option>
-                    <option value="1">Principiante</option>
-                    <option value="2">Profi</option>
-                    <option value="3">Experto</option>
-                </select>
-                <!--<button id="btnIniciar" class="btn btn-primary" disabled>INICIAR</button>-->
+            <div class="col-lg-6 offset-lg-3 text-center">
+                <div class="d-flex justify-content-center align-items-center gap-6 mb-4">
+                    <div class="flex-grow-1">
+                        <select class="form-select" id="nivel">
+                            <option value="0">--Elige el Nivel--</option>
+                            <option value="1">Principiante</option>
+                            <option value="2">Profi</option>
+                            <option value="3">Experto</option>
+                        </select>
+                    </div>
+                    <div class="error-info">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <span id="errores" class="error-count">0</span>
+                            <div class="error-tracker flex-grow-1">
+                                <div class="progress-container">
+                                    <div class="progress" style="height: 20px;">
+                                        <div id="errorProgress" class="progress-bar bg-success" 
+                                             role="progressbar" 
+                                             style="width: 0%" 
+                                             aria-valuenow="0" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="6">
+                                            <span class="progress-text">0/6</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-labels d-flex justify-content-between mt-1">
+                                        <small class="text-muted">0</small>
+                                        <small class="text-muted">6 max</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-lg-8">
+        <div class="row mt-5">
+            <div class="col-12">
                 <div id="palabra" class="fs-3 text-center"></div>
                 <div id="qwerty"></div>
-            </div>
-            <div class="col-lg-4">
-                <h4>Errores: <span id="errores">0</span></h4>
             </div>
         </div>
                     <div id="mensajeFinal" class="mensaje-final oculto">
@@ -83,7 +136,9 @@
                 <button onclick="reiniciarJuego()">Jugar de nuevo</button>
             </div>
     </section>
-    <footer><h5>WiNDZOV 2025 || Creado por Nina K.</h5></footer>
+        <footer>
+        <h5>Juego del Ahorcado accesible || Creado por Nina K.  <br><small>WiNDZOV &copy; 2025 All Rights Reserved</small></h5>
+    </footer>
    
     <script src="juego.js"></script>
 </body>

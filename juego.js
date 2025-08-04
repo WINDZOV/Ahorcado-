@@ -5,6 +5,14 @@ let palabra = '';
 let palabraOculta = ''; 
 let errores = 0; 
 let letrasUsadas = [];
+let sonidoHabilitado = true;
+
+// Variables para elementos DOM
+const modal = document.getElementById("modal");
+const aboutButton = document.getElementById("aboutButton");
+const closeButton = document.querySelector(".close-button");
+const themeToggle = document.getElementById("themeToggle");
+const soundToggle = document.getElementById("soundToggle");
 const nivel1 = [ "abra", "agua", "aire", "alto", "ancho", "arena", "arbol", "arroz", "azul", "banco",
     "barco", "barro", "barrio", "brazo", "caja", "calor", "calle", "campo", "canto", "carne",
     "casa", "cerca", "cielo", "claro", "cobre", "coco", "coche", "comida", "correr", "corte",
@@ -89,6 +97,27 @@ function iniciarJuego(nivel) {
     
     document.querySelector("#palabra").textContent = palabraOculta.join(" ");
     document.querySelector("#errores").textContent = errores;
+    
+    // Resetear contador de errores al color verde inicial
+    const errorCount = document.getElementById("errores");
+    if (errorCount) {
+        errorCount.className = "error-count"; // Solo la clase base (verde)
+    }
+    
+    // Resetear barra de progreso de errores
+    const progressBar = document.getElementById("errorProgress");
+    if (progressBar) {
+        progressBar.style.width = "0%";
+        progressBar.setAttribute("aria-valuenow", "0");
+        const progressText = progressBar.querySelector(".progress-text");
+        if (progressText) {
+            progressText.textContent = "0/6";
+        } else {
+            progressBar.innerHTML = '<span class="progress-text">0/6</span>';
+        }
+        progressBar.className = "progress-bar bg-success";
+    }
+    
     generarTeclado();
 }
 
@@ -146,6 +175,10 @@ function pulsarLetra(letra, boton) {
         errores++;
         document.querySelector("#errores").textContent = errores;
         boton.classList.replace("btn-success", "btn-danger");
+        updateErrorProgress();
+        playSound('error');
+    } else {
+        playSound('success');
     }
 
     verificarFinDelJuego();
@@ -158,15 +191,164 @@ function verificarFinDelJuego() {
     if (!palabraOculta.includes("_")) {
         textoMensaje.textContent = "🎉 ¡Tadam tadam tadaam! La palabra era:  " + palabra.toUpperCase() +  ". ¡Bravoo!";
         mensajeFinal.classList.remove("oculto");
+        playSound('win');
     } else if (errores >= 6) {
         textoMensaje.textContent = "😢 Ai ai ai ai aii. La palabra era:  " + palabra.toUpperCase() +  ". Intenta de nuevo.";
         mensajeFinal.classList.remove("oculto");
+        playSound('lose');
+    }
+}
+
+// Función para actualizar la barra de progreso de errores
+function updateErrorProgress() {
+    const progressBar = document.getElementById("errorProgress");
+    const progressText = progressBar ? progressBar.querySelector(".progress-text") : null;
+    const errorCount = document.getElementById("errores");
+    
+    if (progressBar) {
+        const porcentaje = (errores / 6) * 100;
+        progressBar.style.width = porcentaje + "%";
+        progressBar.setAttribute("aria-valuenow", errores);
+        
+        if (progressText) {
+            progressText.textContent = errores + "/6";
+        } else {
+            progressBar.innerHTML = `<span class="progress-text">${errores}/6</span>`;
+        }
+        
+        // Cambiar color según el nivel de error para la barra de progreso
+        if (errores >= 5) {
+            progressBar.className = "progress-bar bg-danger";
+        } else if (errores >= 3) {
+            progressBar.className = "progress-bar bg-warning";
+        } else {
+            progressBar.className = "progress-bar bg-success";
+        }
+    }
+    
+    // Cambiar color del contador de errores dinámicamente
+    if (errorCount) {
+        errorCount.className = "error-count";
+        if (errores >= 5) {
+            errorCount.classList.add("danger");
+        } else if (errores >= 3) {
+            errorCount.classList.add("warning");
+        }
+        // Si errores < 3, mantiene la clase base (verde)
+    }
+}
+
+// Funciones de audio
+function playSound(type) {
+    if (!sonidoHabilitado) return;
+    
+    try {
+        // Crear contexto de audio solo cuando se necesite (para evitar problemas de autoplay)
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        let frequency;
+        let duration;
+        
+        switch(type) {
+            case 'success':
+                frequency = 523.25; // Do mayor
+                duration = 200;
+                break;
+            case 'error':
+                frequency = 146.83; // Re bemol bajo
+                duration = 300;
+                break;
+            case 'win':
+                // Secuencia de victoria: Do-Mi-Sol
+                playTone(audioContext, 523.25, 150);
+                setTimeout(() => playTone(audioContext, 659.25, 150), 150);
+                setTimeout(() => playTone(audioContext, 783.99, 300), 300);
+                return;
+            case 'lose':
+                // Secuencia de derrota: Sol-Fa-Mi-Re
+                playTone(audioContext, 392.00, 200);
+                setTimeout(() => playTone(audioContext, 349.23, 200), 200);
+                setTimeout(() => playTone(audioContext, 329.63, 200), 400);
+                setTimeout(() => playTone(audioContext, 293.66, 400), 600);
+                return;
+        }
+        
+        playTone(audioContext, frequency, duration);
+    } catch (error) {
+        console.log('Audio no disponible:', error);
+    }
+}
+
+function playTone(audioContext, frequency, duration) {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = frequency;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration / 1000);
+}
+
+function toggleSound() {
+    sonidoHabilitado = !sonidoHabilitado;
+    const soundIcon = soundToggle.querySelector("i");
+    
+    if (sonidoHabilitado) {
+        soundIcon.className = "fas fa-volume-up";
+        soundToggle.classList.remove("muted");
+        localStorage.setItem("sound", "enabled");
+    } else {
+        soundIcon.className = "fas fa-volume-mute";
+        soundToggle.classList.add("muted");
+        localStorage.setItem("sound", "disabled");
     }
 }
 
     function reiniciarJuego() {
+        // Resetear variables del juego
+        palabra = '';
+        palabraOculta = '';
+        errores = 0;
+        letrasUsadas = [];
+        
+        // Resetear elementos de la interfaz
         document.querySelector("#nivel").value = "0";
-        location.reload();
+        document.querySelector("#palabra").textContent = "";
+        document.querySelector("#errores").textContent = "0";
+        document.querySelector("#qwerty").innerHTML = "";
+        
+        // Resetear contador de errores al color verde inicial
+        const errorCount = document.getElementById("errores");
+        if (errorCount) {
+            errorCount.className = "error-count"; // Solo la clase base (verde)
+        }
+        
+        // Resetear barra de progreso de errores
+        const progressBar = document.getElementById("errorProgress");
+        if (progressBar) {
+            progressBar.style.width = "0%";
+            progressBar.setAttribute("aria-valuenow", "0");
+            const progressText = progressBar.querySelector(".progress-text");
+            if (progressText) {
+                progressText.textContent = "0/6";
+            } else {
+                progressBar.innerHTML = '<span class="progress-text">0/6</span>';
+            }
+            progressBar.className = "progress-bar bg-success";
+        }
+        
+        // Ocultar mensaje final
+        const mensajeFinal = document.getElementById("mensajeFinal");
+        if (mensajeFinal) {
+            mensajeFinal.classList.add("oculto");
+        }
     }
 
        //location.href = 'juegofinaleeror.html';
@@ -178,10 +360,6 @@ function verificarFinDelJuego() {
     
 
 
-const modal = document.getElementById("modal");
-const aboutButton = document.getElementById("aboutButton");
-const closeButton = document.querySelector(".close-button");
-
 function openModal() {
   modal.style.display = "block";
 }
@@ -190,8 +368,109 @@ function closeModal() {
   modal.style.display = "none";
 }
 
+function toggleTheme() {
+  const body = document.body;
+  const themeIcon = themeToggle.querySelector("i");
+  
+  if (body.getAttribute("data-theme") === "dark") {
+    body.removeAttribute("data-theme");
+    themeIcon.className = "fas fa-moon";
+    localStorage.setItem("theme", "light");
+  } else {
+    body.setAttribute("data-theme", "dark");
+    themeIcon.className = "fas fa-sun";
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+// Cargar tema guardado al iniciar
+function loadSavedTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  const body = document.body;
+  const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
+  
+  if (savedTheme === "dark") {
+    body.setAttribute("data-theme", "dark");
+    if (themeIcon) themeIcon.className = "fas fa-sun";
+  } else {
+    body.removeAttribute("data-theme");
+    if (themeIcon) themeIcon.className = "fas fa-moon";
+  }
+}
+
+// Cargar configuración de sonido guardada
+function loadSavedSound() {
+  const savedSound = localStorage.getItem("sound");
+  const soundIcon = soundToggle ? soundToggle.querySelector("i") : null;
+  
+  if (savedSound === "disabled") {
+    sonidoHabilitado = false;
+    if (soundIcon) soundIcon.className = "fas fa-volume-mute";
+    if (soundToggle) soundToggle.classList.add("muted");
+  } else {
+    sonidoHabilitado = true;
+    if (soundIcon) soundIcon.className = "fas fa-volume-up";
+    if (soundToggle) soundToggle.classList.remove("muted");
+  }
+}
+
+// Event listeners
 aboutButton.addEventListener("click", openModal);
 closeButton.addEventListener("click", closeModal);
+if (themeToggle) {
+  themeToggle.addEventListener("click", toggleTheme);
+}
+if (soundToggle) {
+  soundToggle.addEventListener("click", toggleSound);
+}
+
+// Cargar tema y resetear interfaz al iniciar la página
+document.addEventListener("DOMContentLoaded", function() {
+  // Cargar configuraciones guardadas
+  loadSavedTheme();
+  loadSavedSound();
+  
+  // Resetear select al cargar/refrescar la página
+  const nivelSelect = document.querySelector("#nivel");
+  if (nivelSelect) {
+    nivelSelect.value = "0";
+  }
+  
+  // Limpiar el área de palabra y teclado
+  const palabraDiv = document.querySelector("#palabra");
+  const qwertyDiv = document.querySelector("#qwerty");
+  const erroresSpan = document.querySelector("#errores");
+  
+  if (palabraDiv) palabraDiv.textContent = "";
+  if (qwertyDiv) qwertyDiv.innerHTML = "";
+  if (erroresSpan) erroresSpan.textContent = "0";
+  
+  // Resetear contador de errores al color verde inicial
+  const errorCount = document.getElementById("errores");
+  if (errorCount) {
+    errorCount.className = "error-count"; // Solo la clase base (verde)
+  }
+  
+  // Resetear barra de progreso de errores
+  const progressBar = document.getElementById("errorProgress");
+  if (progressBar) {
+    progressBar.style.width = "0%";
+    progressBar.setAttribute("aria-valuenow", "0");
+    const progressText = progressBar.querySelector(".progress-text");
+    if (progressText) {
+        progressText.textContent = "0/6";
+    } else {
+        progressBar.innerHTML = '<span class="progress-text">0/6</span>';
+    }
+    progressBar.className = "progress-bar bg-success";
+  }
+  
+  // Asegurar que el mensaje final esté oculto
+  const mensajeFinal = document.getElementById("mensajeFinal");
+  if (mensajeFinal) {
+    mensajeFinal.classList.add("oculto");
+  }
+});
 
 window.addEventListener("click", function(event) {
   if (event.target === modal) {

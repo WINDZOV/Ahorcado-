@@ -56,11 +56,11 @@ body {
 }
 
 [data-theme="dark"] #errores {
-  color: #e74c3c;
+  color: #000000;
 }
 
 [data-theme="dark"] h4 {
-  color: #ecf0f1;
+  color: #000000;
 }
 
 [data-theme="dark"] .close-button:hover,
@@ -361,11 +361,15 @@ body {
 .error-count.warning {
   background: linear-gradient(135deg, #f39c12, #e67e22);
   box-shadow: 0 2px 6px rgba(243, 156, 18, 0.4);
+  color: whitesmoke;
+  font-weight: bold;
 }
 
 .error-count.danger {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
   box-shadow: 0 2px 6px rgba(231, 76, 60, 0.4);
+  color: black;
+  font-weight: bold;
 }
 
 /* Utilidad para gap-6 */
@@ -461,13 +465,26 @@ body {
 }
 
 [data-theme="dark"] .error-count {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.5);
+  color: white;
+}
+
+[data-theme="dark"] .error-count.warning {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  box-shadow: 0 2px 6px rgba(243, 156, 18, 0.5);
+  color: white;
+}
+
+[data-theme="dark"] .error-count.danger {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
   box-shadow: 0 2px 6px rgba(231, 76, 60, 0.5);
+  color: white;
 }
 
 [data-theme="dark"] .error-tracker {
   background: linear-gradient(135deg, rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.6));
-  border: 2px solid rgba(231, 76, 60, 0.4);
+  border: 2px solid rgba(52, 152, 219, 0.4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -512,10 +529,12 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
   padding: 0.75rem 1rem;
-  width: 300px;
-  margin-left: -3rem;
+  width: 100%;
+  max-width: 350px;
 }
 
 /* Asegurar que no hay flechas nativas */
@@ -612,7 +631,9 @@ body {
   font-size: 1.5rem;
   color: #e74c3c;
   font-weight: bold;
+  color: whitesmoke;
 }
+
 
 #qwerty {
   margin: 2rem 0;
@@ -740,6 +761,12 @@ footer h5 {
     margin: 0.1rem;
   }
   
+  /* Select responsive */
+  #nivel {
+    font-size: 1.1rem !important;
+    max-width: 250px;
+  }
+  
   /* Layout de errores responsive */
   .d-flex.gap-6 {
     flex-direction: column !important;
@@ -750,14 +777,28 @@ footer h5 {
   .error-info .d-flex {
     flex-direction: row !important;
     gap: 1rem !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   
   .error-info {
     min-width: auto;
+    width: 100%;
+  }
+  
+  .error-count {
+    font-size: 1rem !important;
+    padding: 0.3rem 0.8rem !important;
+    min-width: 60px;
+    text-align: center;
+    color: whitesmoke;
+
   }
   
   .error-tracker {
     min-width: auto;
+    flex: 1;
+    max-width: 250px;
   }
   
   #palabra {
@@ -795,32 +836,49 @@ footer h5 {
     font-size: 1.2rem;
   }
   
+  /* Select para móviles */
+  #nivel {
+    font-size: 1rem !important;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  
   /* Stack en móviles pequeños */
   .d-flex.gap-6 {
     flex-direction: column !important;
     gap: 1rem !important;
   }
   
-  /* En móviles pequeños, apilar contador y progress bar */
+  /* En móviles pequeños, mantener horizontal pero más compacto */
   .error-info .d-flex {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
     text-align: center;
+    justify-content: center !important;
+    align-items: center !important;
   }
   
   .error-count {
-    font-size: 0.9rem;
-    padding: 0.2rem 0.6rem;
-    align-self: center;
+    font-size: 0.9rem !important;
+    padding: 0.25rem 0.6rem !important;
+    min-width: 50px;
+    text-align: center;
+    flex-shrink: 0;
   }
   
   .error-tracker {
-    padding: 0.75rem;
+    padding: 0.5rem;
     min-width: auto;
+    flex: 1;
+    max-width: 200px;
   }
   
   .error-tracker .progress-bar {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .progress-labels small {
+    font-size: 0.65rem !important;
   }
   
   #palabra {
@@ -852,6 +910,33 @@ footer h5 {
     width: 98%;
     max-width: 350px;
     padding: 1rem;
+  }
+}
+
+/* Media query adicional para móviles muy pequeños */
+@media (max-width: 400px) {
+  #nivel {
+    font-size: 0.9rem !important;
+    max-width: 180px;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  .error-info .d-flex {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    text-align: center;
+  }
+  
+  .error-count {
+    font-size: 1rem !important;
+    padding: 0.3rem 0.8rem !important;
+    align-self: center;
+    margin-bottom: 0.25rem;
+  }
+  
+  .error-tracker {
+    width: 100%;
+    max-width: none;
   }
 }
 

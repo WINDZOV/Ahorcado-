@@ -1,11 +1,11 @@
 
 let nivel = document.querySelector('#nivel');
-//let btn1 = document.querySelector('#btnIniciar');
 let palabra = '';
 let palabraOculta = ''; 
 let errores = 0; 
 let letrasUsadas = [];
 let sonidoHabilitado = true;
+let idiomaActual = 'es'; // español por defecto
 
 // Variables para elementos DOM
 const modal = document.getElementById("modal");
@@ -13,6 +13,7 @@ const aboutButton = document.getElementById("aboutButton");
 const closeButton = document.querySelector(".close-button");
 const themeToggle = document.getElementById("themeToggle");
 const soundToggle = document.getElementById("soundToggle");
+const languageToggle = document.getElementById("languageToggle");
 const nivel1 = [ "abra", "agua", "aire", "alto", "ancho", "arena", "arbol", "arroz", "azul", "banco",
     "barco", "barro", "barrio", "brazo", "caja", "calor", "calle", "campo", "canto", "carne",
     "casa", "cerca", "cielo", "claro", "cobre", "coco", "coche", "comida", "correr", "corte",
@@ -28,7 +29,7 @@ const nivel1 = [ "abra", "agua", "aire", "alto", "ancho", "arena", "arbol", "arr
     "punto", "puro", "queso", "rapido", "raro", "razon", "recto", "reloj", "rico", "risa", "roca",
     "rojo", "roto", "rubio", "ruido", "saber", "sabio", "saco", "sala", "sangre", "sabor", "seco",
     "seguro", "silla", "simple", "sitio", "sobre", "sol", "suelo", "sueno", "tabla", "taza", "techo",
-    "tela", "templo", "tierra", "tiempo", "tipo", "tocar", "total", "trabajo", "traje", "trama",
+    "tela", "granja", "templo", "tierra", "tiempo", "tipo", "tocar", "total", "trabajo", "traje", "trama",
     "tren", "trigo", "triste", "truco", "tubo", "tumba", "unico", "uva", "vaca", "vapor", "vaso",
     "verde", "viaje", "vida", "viento", "viejo", "vino", "vivo", "volar", "vuelta", "yema",
     "zapato", "zona"];
@@ -72,6 +73,128 @@ const nivel2 = ["abismo", "acceso", "admirar", "afinar", "agujero", "alarma", "a
     "inflamabilidad", "inmunologia", "insoslayable", "interconectado", "irreconciliable", "justificativo", "legislacion", "linguistico", "marginalidad", "metalurgico"
 ];
 
+// Palabras en inglés (English words)
+const nivel1_en = ["open", "water", "air", "high", "wide", "sand", "tree", "rice", "blue", "bank",
+    "boat", "mud", "area", "arm", "box", "heat", "street", "field", "song", "meat",
+    "house", "near", "sky", "clear", "copper", "coconut", "car", "food", "run", "cut",
+    "cross", "picture", "count", "body", "culture", "curve", "data", "dense", "duty", "finger",
+    "tooth", "drawing", "money", "hard", "sweet", "echo", "entry", "team", "error", "school",
+    "back", "wait", "star", "stove", "line", "bottom", "force", "fire", "source", "win",
+    "cat", "people", "war", "taste", "fact", "egg", "ice", "iron", "image", "winter",
+    "island", "young", "game", "together", "fair", "kilo", "lake", "long", "slow", "letter", "book",
+    "free", "clean", "smooth", "list", "flame", "key", "light", "mother", "mango", "frame", "brand",
+    "mass", "may", "table", "half", "model", "world", "muscle", "born", "name", "night", "cloud",
+    "number", "eight", "eye", "wave", "gold", "pay", "country", "bread", "potato", "paper", "park", "part",
+    "yard", "stone", "skin", "floor", "beach", "square", "power", "chicken", "door", "town",
+    "point", "pure", "cheese", "fast", "rare", "reason", "straight", "clock", "rich", "laugh", "rock",
+    "red", "broken", "blonde", "noise", "know", "wise", "bag", "room", "blood", "flavor", "dry",
+    "safe", "chair", "simple", "place", "about", "sun", "ground", "dream", "board", "cup", "roof",
+    "fabric", "farm", "temple", "earth", "time", "type", "touch", "total", "work", "suit", "plot",
+    "train", "wheat", "sad", "trick", "tube", "tomb", "unique", "grape", "cow", "steam", "glass",
+    "green", "trip", "life", "wind", "old", "wine", "alive", "fly", "turn", "yolk",
+    "shoe", "zone"];
+
+const nivel2_en = ["abyss", "access", "admire", "tune", "hole", "alarm", "reach", "village", "pillow", "altitude",
+    "wide", "analyze", "longing", "ring", "note", "anxious", "antenna", "ancient", "appetite", "contribute",
+    "approve", "archer", "artisan", "killer", "wonder", "attack", "attend", "land", "athletic", "bold",
+    "increase", "avenue", "notice", "sugar", "balance", "flag", "barrier", "benefit", "ticket", "cellar",
+    "bottle", "braille", "bright", "offer", "compass", "bubble", "hair", "chain", "fatigue", "chapel",
+    "captain", "charity", "caution", "cement", "censure", "nearby", "ceremony", "cyclist", "cipher", "circuit",
+    "clarity", "coward", "rocket", "colony", "command", "compass", "concept", "contest", "trust", "confused",
+    "congress", "advice", "constant", "outline", "contract", "crown", "harvest", "creation", "crystal", "chronic",
+    "crucial", "cruel", "cave", "guilty", "curious", "cursive", "defense", "thin", "delirium", "demon",
+    "dentist", "challenge", "parade", "wear", "desert", "detail", "diagram", "difficult", "dynamic", "dynasty",
+    "diploma", "discord", "enjoy", "distant", "domain", "bedroom", "dramatic", "doubt", "duplex", "economy",
+    "editor", "effective", "exemplary", "elastic", "embargo", "emerging", "emit", "emotion", "company", "find",
+    "energy", "emphasis", "enigma", "enthusiasm", "essence", "mirage", "spiral", "station", "narrow", "structure",
+    "study", "euphoria", "event", "exhibit", "success", "make", "familiar", "ghost", "happiness", "fierce",
+    "fiber", "figure", "philosophy", "firmness", "fluctuate", "fortune", "failure", "border", "founder", "furious"];
+
+const nivel3_en = ["abominable", "absurd", "abundance", "accelerator", "accumulator", "adversity", "affability", "affiliation", "enlarge", "deepen",
+    "chess", "alabaster", "allegorical", "algorithmic", "alchemy", "pompous", "shock", "analytical", "anatomical", "yearning",
+    "animosity", "bland", "anthropologist", "appease", "appreciative", "archaeological", "devastating", "regret", "ancestry", "astronomy",
+    "authenticity", "autonomous", "aversive", "sighting", "braggart", "bureaucracy", "cadence", "calibration", "training", "cartography",
+    "cataclysm", "circumstance", "collision", "complacency", "complementary", "concatenation", "concurrence", "configuration", "conservatism", "consortium",
+    "constructive", "contamination", "contemporary", "contingency", "contradictory", "corroborate", "crystallography", "chronology", "quadrant", "quantifiable",
+    "weakening", "declaration", "deontology", "discouraging", "flow", "despair", "detonator", "diagonalization", "dynamometry", "dinosaur",
+    "discrepancy", "disruptive", "distortion", "diversification", "documentation", "effervescence", "executivity", "electrode", "elephantiasis", "pier",
+    "encapsulation", "encryption", "choppy", "epidemiology", "equidistant", "schematic", "aesthetic", "euphemism", "evaporation", "exacerbation",
+    "extraterrestrial", "philanthropic", "photovoltaic", "fragmentation", "functionality", "electroplating", "gastronomy", "geometrization", "germination", "heterogeneous",
+    "hypothermia", "holography", "homogeneity", "horizontality", "illumination", "impregnation", "incandescent", "incrementer", "indemnification", "inscrutable",
+    "flammability", "immunology", "unavoidable", "interconnected", "irreconcilable", "justificative", "legislation", "linguistic", "marginality", "metallurgical"];
+
+// Objeto con todos los niveles por idioma
+const palabrasPorIdioma = {
+    'es': {
+        1: nivel1,
+        2: nivel2,
+        3: nivel3
+    },
+    'en': {
+        1: nivel1_en,
+        2: nivel2_en,
+        3: nivel3_en
+    }
+};
+
+// Alfabetos por idioma
+const alfabetos = {
+    'es': 'abcdefghijklmnñopqrstuvwxyz'.split(''),
+    'en': 'abcdefghijklmnopqrstuvwxyz'.split('')
+};
+
+// Textos de la interfaz por idioma
+const textos = {
+    'es': {
+        titulo: 'Ahorcado Interactivo',
+        seleccionarNivel: '--Elige el Nivel--',
+        principiante: 'Principiante',
+        profi: 'Profi', 
+        experto: 'Experto',
+        reiniciar: 'Reiniciar',
+        ayuda: 'Ayuda',
+        mensajeVictoria: '🎉 ¡Tadam tadam tadaam! La palabra era: ',
+        mensajeVictoriaFin: '. ¡Bravoo!',
+        mensajeDerrota: '😢 Ai ai ai ai aii. La palabra era: ',
+        mensajeDerrotaFin: '. Intenta de nuevo.',
+        botonJugarDeNuevo: 'Jugar de nuevo'
+    },
+    'en': {
+        titulo: 'Interactive Hangman',
+        seleccionarNivel: '--Choose Level--',
+        principiante: 'Beginner',
+        profi: 'Pro',
+        experto: 'Expert', 
+        reiniciar: 'Restart',
+        ayuda: 'Help',
+        mensajeVictoria: '🎉 Hooray! The word was: ',
+        mensajeVictoriaFin: '. Great job!',
+        mensajeDerrota: '😢 Oh no! The word was: ',
+        mensajeDerrotaFin: '. Try again.',
+        botonJugarDeNuevo: 'Play again'
+    }
+};
+
+// Configuración de errores máximos por nivel
+const erroresMaximos = {
+    1: 10, // Principiante: 10 errores
+    2: 7,  // Pro: 7 errores  
+    3: 6   // Experto: 6 errores
+};
+
+// Partes del ahorcado en orden de aparición
+const partesAhorcado = [
+    'base', 'posteVertical', 'posteHorizontal', 'cuerda', 
+    'cabeza', 'cuerpo', 'brazoIzq', 'brazoDer', 'piernaIzq', 'piernaDer'
+];
+
+// Partes pre-dibujadas por nivel
+const partesPreDibujadas = {
+    1: [], // Principiante: empieza desde cero
+    2: ['base', 'posteVertical', 'posteHorizontal'], // Pro: estructura lista
+    3: ['base', 'posteVertical', 'posteHorizontal', 'cuerda'] // Experto: estructura + cuerda
+};
+
 const alfabeto = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
 nivel.addEventListener("change", function() {
@@ -87,15 +210,31 @@ nivel.addEventListener("change", function() {
     iniciarJuego(nivel.value);
 });
 */
-function iniciarJuego(nivel) {
-    //let palabras = nivel === '1' ? nivel1 : nivel2 , nivel3; <-> NO FUNCIONA ;))
-    let palabras = nivel === '1' ? nivel1 : nivel === '2' ? nivel2 : nivel3;
+function iniciarJuego(nivelSeleccionado) {
+    let palabras = palabrasPorIdioma[idiomaActual][nivelSeleccionado];
     palabra = palabras[Math.floor(Math.random() * palabras.length)];
     palabraOculta = Array(palabra.length).fill("_"); // para dibujar guillones bajos '_' == numero de letras en palabra
     errores = 0;
     letrasUsadas = [];
     
+    // Mostrar alerta informativa del nivel seleccionado
+    const nivelNombres = {
+        1: { es: 'Principiante', en: 'Beginner' },
+        2: { es: 'Pro', en: 'Pro' },
+        3: { es: 'Experto', en: 'Expert' }
+    };
+    const maxErroresNivel = erroresMaximos[nivelSeleccionado];
+    const nombreNivel = nivelNombres[nivelSeleccionado][idiomaActual];
+    const tituloNivel = idiomaActual === 'es' ? '¡Juego Iniciado!' : 'Game Started!';
+    const mensajeNivel = idiomaActual === 'es' ? 
+        `Nivel ${nombreNivel} - Máximo ${maxErroresNivel} errores` : 
+        `${nombreNivel} Level - Maximum ${maxErroresNivel} errors`;
+    alertaInfo(tituloNivel, mensajeNivel, 3000);
+    
     document.querySelector("#palabra").textContent = palabraOculta.join(" ");
+    
+    // Inicializar dibujo del ahorcado
+    inicializarDibujoAhorcado(nivelSeleccionado);
     document.querySelector("#errores").textContent = errores;
     
     // Resetear contador de errores al color verde inicial
@@ -106,16 +245,24 @@ function iniciarJuego(nivel) {
     
     // Resetear barra de progreso de errores
     const progressBar = document.getElementById("errorProgress");
+    const maxErrores = erroresMaximos[nivel];
     if (progressBar) {
         progressBar.style.width = "0%";
         progressBar.setAttribute("aria-valuenow", "0");
+        progressBar.setAttribute("aria-valuemax", maxErrores);
         const progressText = progressBar.querySelector(".progress-text");
         if (progressText) {
-            progressText.textContent = "0/6";
+            progressText.textContent = `0/${maxErrores}`;
         } else {
-            progressBar.innerHTML = '<span class="progress-text">0/6</span>';
+            progressBar.innerHTML = `<span class="progress-text">0/${maxErrores}</span>`;
         }
         progressBar.className = "progress-bar bg-success";
+    }
+    
+    // Actualizar etiquetas de la barra de progreso
+    const progressLabels = document.querySelectorAll('.progress-labels small');
+    if (progressLabels.length >= 2) {
+        progressLabels[1].textContent = `${maxErrores} max`;
     }
     
     generarTeclado();
@@ -125,10 +272,18 @@ function generarTeclado() {
     let qwertyDiv = document.querySelector("#qwerty");
     qwertyDiv.innerHTML = ""; // Limpia el contenido antes de generar teclas nuevas
 
-    // Definir filas del teclado
-    const fila1 = "abcdefghi".split("");
-    const fila2 = "jklmnñopq".split("");
-    const fila3 = "rstuvwxyz".split("");
+    // Definir filas del teclado según el idioma
+    let fila1, fila2, fila3;
+    
+    if (idiomaActual === 'es') {
+        fila1 = "abcdefghi".split("");
+        fila2 = "jklmnñopq".split("");
+        fila3 = "rstuvwxyz".split("");
+    } else {
+        fila1 = "abcdefghi".split("");
+        fila2 = "jklmnopqr".split("");
+        fila3 = "stuvwxyz".split("");
+    }
 
   function crearFila(letras) {
         let filaDiv = document.createElement("div");
@@ -156,6 +311,42 @@ function generarTeclado() {
     crearFila(fila3);
 }
 
+// ============================================
+// FUNCIONES DEL DIBUJO DEL AHORCADO
+// ============================================
+
+function inicializarDibujoAhorcado(nivel) {
+    // Ocultar todas las partes
+    partesAhorcado.forEach(parte => {
+        const elemento = document.getElementById(parte);
+        if (elemento) {
+            elemento.style.opacity = '0';
+        }
+    });
+    
+    // Mostrar partes pre-dibujadas según el nivel
+    const partesIniciales = partesPreDibujadas[nivel] || [];
+    partesIniciales.forEach(parte => {
+        const elemento = document.getElementById(parte);
+        if (elemento) {
+            elemento.style.opacity = '1';
+        }
+    });
+}
+
+function dibujarSiguienteParte(nivel) {
+    const partesIniciales = partesPreDibujadas[nivel] || [];
+    const partesDibujadas = partesIniciales.length + errores - 1;
+    
+    if (partesDibujadas < partesAhorcado.length) {
+        const siguienteParte = partesAhorcado[partesDibujadas];
+        const elemento = document.getElementById(siguienteParte);
+        if (elemento) {
+            elemento.style.opacity = '1';
+        }
+    }
+}
+
 function pulsarLetra(letra, boton) {
     if (letrasUsadas.includes(letra)) return;
     letrasUsadas.push(letra);
@@ -175,6 +366,10 @@ function pulsarLetra(letra, boton) {
         errores++;
         document.querySelector("#errores").textContent = errores;
         boton.classList.replace("btn-success", "btn-danger");
+        
+        // Dibujar siguiente parte del ahorcado
+        dibujarSiguienteParte(nivel.value);
+        
         updateErrorProgress();
         playSound('error');
     } else {
@@ -187,14 +382,33 @@ function pulsarLetra(letra, boton) {
 function verificarFinDelJuego() {
     const mensajeFinal = document.getElementById("mensajeFinal");
     const textoMensaje = document.getElementById("textoMensaje");
+    const maxErrores = erroresMaximos[nivel.value];
 
     if (!palabraOculta.includes("_")) {
-        textoMensaje.textContent = "🎉 ¡Tadam tadam tadaam! La palabra era:  " + palabra.toUpperCase() +  ". ¡Bravoo!";
+        // Victoria - usar alerta de éxito
+        const tituloVictoria = idiomaActual === 'es' ? '¡Felicidades!' : 'Congratulations!';
+        const mensajeVictoria = textos[idiomaActual].mensajeVictoria + palabra.toUpperCase() + textos[idiomaActual].mensajeVictoriaFin;
+        
+        // Mostrar mensaje original también
+        textoMensaje.textContent = mensajeVictoria;
         mensajeFinal.classList.remove("oculto");
+        
+        // Mostrar alerta moderna
+        alertaExito(tituloVictoria, mensajeVictoria, 6000);
+        
         playSound('win');
-    } else if (errores >= 6) {
-        textoMensaje.textContent = "😢 Ai ai ai ai aii. La palabra era:  " + palabra.toUpperCase() +  ". Intenta de nuevo.";
+    } else if (errores >= maxErrores) {
+        // Derrota - usar alerta de error
+        const tituloDerrota = idiomaActual === 'es' ? '¡Juego Terminado!' : 'Game Over!';
+        const mensajeDerrota = textos[idiomaActual].mensajeDerrota + palabra.toUpperCase() + textos[idiomaActual].mensajeDerrotaFin;
+        
+        // Mostrar mensaje original también
+        textoMensaje.textContent = mensajeDerrota;
         mensajeFinal.classList.remove("oculto");
+        
+        // Mostrar alerta moderna
+        alertaError(tituloDerrota, mensajeDerrota, 6000);
+        
         playSound('lose');
     }
 }
@@ -204,22 +418,24 @@ function updateErrorProgress() {
     const progressBar = document.getElementById("errorProgress");
     const progressText = progressBar ? progressBar.querySelector(".progress-text") : null;
     const errorCount = document.getElementById("errores");
+    const maxErrores = erroresMaximos[nivel.value];
     
     if (progressBar) {
-        const porcentaje = (errores / 6) * 100;
+        const porcentaje = (errores / maxErrores) * 100;
         progressBar.style.width = porcentaje + "%";
         progressBar.setAttribute("aria-valuenow", errores);
         
         if (progressText) {
-            progressText.textContent = errores + "/6";
+            progressText.textContent = errores + "/" + maxErrores;
         } else {
-            progressBar.innerHTML = `<span class="progress-text">${errores}/6</span>`;
+            progressBar.innerHTML = `<span class="progress-text">${errores}/${maxErrores}</span>`;
         }
         
-        // Cambiar color según el nivel de error para la barra de progreso
-        if (errores >= 5) {
+        // Cambiar color según proximidad al límite (dinámico por nivel)
+        const tercio = Math.ceil(maxErrores / 3);
+        if (errores >= maxErrores - tercio) {
             progressBar.className = "progress-bar bg-danger";
-        } else if (errores >= 3) {
+        } else if (errores >= tercio) {
             progressBar.className = "progress-bar bg-warning";
         } else {
             progressBar.className = "progress-bar bg-success";
@@ -228,13 +444,14 @@ function updateErrorProgress() {
     
     // Cambiar color del contador de errores dinámicamente
     if (errorCount) {
+        const tercio = Math.ceil(maxErrores / 3);
         errorCount.className = "error-count";
-        if (errores >= 5) {
+        if (errores >= maxErrores - tercio) {
             errorCount.classList.add("danger");
-        } else if (errores >= 3) {
+        } else if (errores >= tercio) {
             errorCount.classList.add("warning");
         }
-        // Si errores < 3, mantiene la clase base (verde)
+        // Si errores < tercio, mantiene la clase base (verde)
     }
 }
 
@@ -476,5 +693,173 @@ window.addEventListener("click", function(event) {
   if (event.target === modal) {
     closeModal();
   }
-})
+});
+
+// Función para cambiar idioma
+function cambiarIdioma() {
+    idiomaActual = idiomaActual === 'es' ? 'en' : 'es';
+    
+    // Mostrar alerta informativa del cambio de idioma
+    const tituloInfo = idiomaActual === 'es' ? 'Idioma Cambiado' : 'Language Changed';
+    const mensajeInfo = idiomaActual === 'es' ? 'El juego ahora está en español' : 'The game is now in English';
+    alertaInfo(tituloInfo, mensajeInfo, 2500);
+    
+    actualizarInterfazIdioma();
+    
+    // Reiniciar el juego si hay uno en progreso
+    if (nivel.value !== "0") {
+        iniciarJuego(nivel.value);
+    }
+    
+    // Guardar preferencia de idioma
+    localStorage.setItem('idioma', idiomaActual);
+}
+
+// Función para actualizar textos de la interfaz
+function actualizarInterfazIdioma() {
+    const langText = document.getElementById('langText');
+    const gameTitle = document.querySelector('.game-title');
+    const levelSelect = document.getElementById('nivel');
+    const reiniciarBtn = document.getElementById('reiniciarBtn');
+    const aboutButton = document.getElementById('aboutButton');
+    const botonJugarDeNuevo = document.getElementById('botonJugarDeNuevo');
+    const langButton = document.querySelector('.btn-language');
+    
+    // Actualizar botón de idioma
+    langText.textContent = idiomaActual.toUpperCase();
+    
+    // Cambiar color del botón según el idioma
+    if (langButton) {
+        if (idiomaActual === 'es') {
+            langButton.classList.add('spanish');
+        } else {
+            langButton.classList.remove('spanish');
+        }
+    }
+    
+    // Actualizar título
+    gameTitle.innerHTML = `<i class="fas fa-skull-crossbones"></i> ${textos[idiomaActual].titulo}`;
+    
+    // Actualizar opciones del select
+    levelSelect.innerHTML = `
+        <option value="0">${textos[idiomaActual].seleccionarNivel}</option>
+        <option value="1">${textos[idiomaActual].principiante}</option>
+        <option value="2">${textos[idiomaActual].profi}</option>
+        <option value="3">${textos[idiomaActual].experto}</option>
+    `;
+    
+    // Actualizar botones
+    reiniciarBtn.innerHTML = `<i class="fas fa-redo"></i> ${textos[idiomaActual].reiniciar}`;
+    aboutButton.innerHTML = `<i class="fas fa-info-circle"></i> ${textos[idiomaActual].ayuda}`;
+    
+    // Actualizar botón del mensaje final
+    if (botonJugarDeNuevo) {
+        botonJugarDeNuevo.textContent = textos[idiomaActual].botonJugarDeNuevo;
+    }
+}
+
+// ============================================
+// SISTEMA DE ALERTAS MODERNAS
+// ============================================
+
+function mostrarAlerta(tipo, titulo, mensaje, duracion = 4000) {
+    const container = document.getElementById('alertContainer');
+    if (!container) return;
+    
+    // Crear elemento de alerta
+    const alertElement = document.createElement('div');
+    alertElement.className = `custom-alert ${tipo}`;
+    
+    // Iconos según el tipo
+    const iconos = {
+        success: 'fas fa-check-circle',
+        error: 'fas fa-times-circle', 
+        warning: 'fas fa-exclamation-triangle',
+        info: 'fas fa-info-circle'
+    };
+    
+    alertElement.innerHTML = `
+        <div class="alert-icon">
+            <i class="${iconos[tipo] || iconos.info}"></i>
+        </div>
+        <div class="alert-content">
+            <div class="alert-title">${titulo}</div>
+            <div class="alert-message">${mensaje}</div>
+        </div>
+        <button class="alert-close" onclick="cerrarAlerta(this)">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Agregar al container
+    container.appendChild(alertElement);
+    
+    // Mostrar con animación
+    setTimeout(() => {
+        alertElement.classList.add('show');
+    }, 10);
+    
+    // Auto-cerrar si se especifica duración
+    if (duracion > 0) {
+        setTimeout(() => {
+            cerrarAlerta(alertElement);
+        }, duracion);
+    }
+    
+    // Cerrar al hacer click
+    alertElement.addEventListener('click', (e) => {
+        if (!e.target.closest('.alert-close')) {
+            cerrarAlerta(alertElement);
+        }
+    });
+    
+    return alertElement;
+}
+
+function cerrarAlerta(elemento) {
+    // Si se pasó el botón, buscar el elemento padre
+    if (elemento.classList.contains('alert-close')) {
+        elemento = elemento.closest('.custom-alert');
+    }
+    
+    if (elemento && elemento.classList.contains('custom-alert')) {
+        elemento.classList.add('hide');
+        setTimeout(() => {
+            if (elemento.parentNode) {
+                elemento.parentNode.removeChild(elemento);
+            }
+        }, 400);
+    }
+}
+
+// Alias para diferentes tipos de alertas
+function alertaExito(titulo, mensaje, duracion = 4000) {
+    return mostrarAlerta('success', titulo, mensaje, duracion);
+}
+
+function alertaError(titulo, mensaje, duracion = 5000) {
+    return mostrarAlerta('error', titulo, mensaje, duracion);
+}
+
+function alertaAdvertencia(titulo, mensaje, duracion = 4000) {
+    return mostrarAlerta('warning', titulo, mensaje, duracion);
+}
+
+function alertaInfo(titulo, mensaje, duracion = 3000) {
+    return mostrarAlerta('info', titulo, mensaje, duracion);
+}
+
+// Event listener para el botón de cambio de idioma
+if (languageToggle) {
+    languageToggle.addEventListener("click", cambiarIdioma);
+}
+
+// Cargar idioma guardado al inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    const idiomaGuardado = localStorage.getItem('idioma');
+    if (idiomaGuardado && idiomaGuardado !== idiomaActual) {
+        idiomaActual = idiomaGuardado;
+        actualizarInterfazIdioma();
+    }
+});
 

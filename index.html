@@ -15,30 +15,46 @@
         <header class="game-header">
             <div class="container-fluid">
                 <div class="row align-items-center">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h1 class="game-title">
                             <i class="fas fa-skull-crossbones"></i> 
                             Ahorcado Interactivo
                         </h1>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <button id="aboutButton" class="btn-custom btn-info-custom" 
-                                aria-label="Información sobre el juego">
-                            <i class="fas fa-info-circle"></i> Ayuda
-                        </button>
-                        <button id="soundToggle" class="btn-custom btn-sound" 
-                                aria-label="Activar/Desactivar sonido">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <button id="themeToggle" class="btn-custom btn-theme" 
-                                aria-label="Cambiar tema">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                        <button id="reiniciarBtn" class="btn-custom btn-restart" 
-                                onclick="reiniciarJuego()" 
-                                aria-label="Reiniciar juego actual">
-                            <i class="fas fa-redo"></i> Reiniciar
-                        </button>
+                    <div class="col-md-4 text-center">
+                        <!-- Grupo izquierda: Configuraciones -->
+                        <div class="btn-group-left">
+                            <button id="reiniciarBtn" class="btn-custom btn-success" 
+                                    onclick="reiniciarJuego()" 
+                                    aria-label="Reiniciar juego actual">
+                                <i class="fas fa-redo"></i> Reiniciar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <!-- Grupo centro: Configuraciones -->
+                        <div class="btn-group-center">
+                            <button id="themeToggle" class="btn-custom btn-theme" 
+                                    aria-label="Cambiar tema">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <button id="soundToggle" class="btn-custom btn-sound" 
+                                    aria-label="Activar/Desactivar sonido">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button id="languageToggle" class="btn-custom btn-language" 
+                                    aria-label="Cambiar idioma">
+                                <i class="fas fa-globe"></i> <span id="langText">ES</span>
+                            </button>
+                            <button id="aboutButton" class="btn-custom btn-info-custom" 
+                                    aria-label="Información sobre el juego">
+                                <i class="fas fa-info-circle"></i> Ayuda
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,14 +144,54 @@
         <div class="row mt-5">
             <div class="col-12">
                 <div id="palabra" class="fs-3 text-center"></div>
+                
+                <!-- Dibujo del Ahorcado -->
+                <div class="hangman-container text-center my-4">
+                    <svg id="hangmanSvg" width="200" height="220" viewBox="0 0 200 220" class="hangman-drawing">
+                        <!-- Base -->
+                        <rect id="base" x="10" y="200" width="60" height="8" stroke="black" stroke-width="3" fill="none" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Poste vertical -->
+                        <line id="posteVertical" x1="40" y1="200" x2="40" y2="20" stroke="black" stroke-width="3" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Poste horizontal -->
+                        <line id="posteHorizontal" x1="40" y1="20" x2="120" y2="20" stroke="black" stroke-width="3" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Cuerda -->
+                        <line id="cuerda" x1="120" y1="20" x2="120" y2="45" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Cabeza -->
+                        <circle id="cabeza" cx="120" cy="60" r="15" stroke="black" stroke-width="2" fill="none" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Cuerpo -->
+                        <line id="cuerpo" x1="120" y1="75" x2="120" y2="140" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Brazo izquierdo -->
+                        <line id="brazoIzq" x1="120" y1="95" x2="95" y2="115" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Brazo derecho -->
+                        <line id="brazoDer" x1="120" y1="95" x2="145" y2="115" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Pierna izquierda -->
+                        <line id="piernaIzq" x1="120" y1="140" x2="95" y2="170" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                        
+                        <!-- Pierna derecha -->
+                        <line id="piernaDer" x1="120" y1="140" x2="145" y2="170" stroke="black" stroke-width="2" class="hangman-part" style="opacity: 0;"/>
+                    </svg>
+                </div>
+                
                 <div id="qwerty"></div>
             </div>
         </div>
                     <div id="mensajeFinal" class="mensaje-final oculto">
                 <p id="textoMensaje"></p>
-                <button onclick="reiniciarJuego()">Jugar de nuevo</button>
+                <button id="botonJugarDeNuevo" onclick="reiniciarJuego()">Jugar de nuevo</button>
             </div>
     </section>
+    
+    <!-- Sistema de Alertas Modernas -->
+    <div id="alertContainer" class="alert-container"></div>
+    
         <footer>
         <h5>Juego del Ahorcado accesible || Creado por Nina K.  <br><small>WiNDZOV &copy; 2025 All Rights Reserved</small></h5>
     </footer>
